@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naza Builds — Issue 001 — Docs Africa</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --ivory: #F5F0E8;
+  --ivory-warm: #EDE6D6;
+  --ivory-deep: #E2D9C6;
+  --charcoal: #1C1A17;
+  --charcoal-soft: #2A2721;
+  --bronze: #8B5E3C;
+  --bronze-light: #C4845A;
+  --text-primary: #1C1A17;
+  --text-secondary: #5C5649;
+  --text-ghost: #9C9488;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--ivory); color: var(--text-primary); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.028; pointer-events: none; z-index: 9000;
+}
+
+/* NAV */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  padding: 1.6rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+.site-nav.scrolled {
+  background: rgba(245,240,232,0.96);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(139,94,60,0.1);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.35rem; letter-spacing: 0.28em;
+  color: var(--ivory); text-decoration: none; transition: color 0.3s;
+}
+.nav-logo.dark { color: var(--charcoal); }
+.site-nav.scrolled .nav-logo { color: var(--charcoal); }
+.nav-right { display: flex; align-items: center; gap: 2.5rem; }
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-link {
+  font-family: 'Space Mono', monospace; font-size: 0.56rem;
+  letter-spacing: 0.18em; color: rgba(245,240,232,0.6);
+  text-decoration: none; text-transform: uppercase; transition: color 0.25s;
+}
+.nav-link.dark { color: var(--text-secondary); }
+.nav-link:hover { color: var(--bronze-light); }
+.nav-link.dark:hover { color: var(--bronze); }
+.nav-link.active { color: var(--bronze-light); }
+.nav-link.active.dark { color: var(--bronze); }
+.site-nav.scrolled .nav-link { color: var(--text-secondary); }
+.site-nav.scrolled .nav-link:hover { color: var(--bronze); }
+.site-nav.scrolled .nav-link.active { color: var(--bronze); }
+.nav-cta {
+  font-family: 'Space Mono', monospace; font-size: 0.56rem;
+  letter-spacing: 0.18em; padding: 0.65rem 1.3rem;
+  text-decoration: none; text-transform: uppercase; transition: background 0.25s;
+  background: var(--bronze-light); color: var(--ivory);
+}
+.nav-cta:hover { background: var(--bronze); }
+.nav-cta.on-dark { background: rgba(245,240,232,0.15); color: var(--ivory); border: 1px solid rgba(245,240,232,0.2); }
+.nav-cta.on-dark:hover { background: var(--bronze); border-color: var(--bronze); }
+.site-nav.scrolled .nav-cta { background: var(--charcoal); color: var(--ivory); }
+.site-nav.scrolled .nav-cta:hover { background: var(--bronze); }
+
+/* MARQUEE */
+.marquee-bar {
+  overflow: hidden;
+  border-top: 1px solid rgba(139,94,60,0.12);
+  border-bottom: 1px solid rgba(139,94,60,0.12);
+  padding: 1.1rem 0; background: var(--ivory-warm);
+}
+.marquee-track { display: flex; animation: marquee 28s linear infinite; white-space: nowrap; }
+.marquee-item {
+  font-family: 'Bebas Neue', sans-serif; font-size: 0.82rem;
+  letter-spacing: 0.3em; color: var(--text-ghost);
+  padding: 0 2.2rem; text-transform: uppercase; flex-shrink: 0;
+}
+.marquee-item b { color: var(--bronze); font-weight: 400; margin-right: 2rem; }
+
+/* EYEBROW */
+.eyebrow {
+  font-family: 'Space Mono', monospace; font-size: 0.54rem;
+  letter-spacing: 0.4em; color: var(--bronze); text-transform: uppercase;
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+}
+.eyebrow::after { content: ''; flex: 1; height: 1px; background: rgba(139,94,60,0.16); }
+.eyebrow.light { color: var(--bronze-light); }
+.eyebrow.light::after { background: rgba(245,240,232,0.1); }
+.eyebrow.center { justify-content: center; }
+.eyebrow.center::after { display: none; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 1rem;
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; padding: 1.1rem 2rem; transition: background 0.3s ease, color 0.3s ease;
+  cursor: pointer; border: none;
+}
+.btn-dark { background: var(--charcoal); color: var(--ivory); }
+.btn-dark:hover { background: var(--bronze); }
+.btn-bronze { background: var(--bronze); color: var(--ivory); }
+.btn-bronze:hover { background: var(--bronze-light); }
+.btn-outline { background: transparent; color: var(--charcoal); border: 1px solid rgba(139,94,60,0.3); }
+.btn-outline:hover { background: var(--charcoal); color: var(--ivory); }
+.btn-ghost-light {
+  background: transparent; color: rgba(245,240,232,0.5);
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: color 0.25s;
+}
+.btn-ghost-light:hover { color: var(--ivory); }
+.btn-text {
+  font-family: 'Space Mono', monospace; font-size: 0.56rem;
+  letter-spacing: 0.2em; color: var(--bronze); text-decoration: none;
+  text-transform: uppercase; display: inline-flex; align-items: center; gap: 0.6rem; transition: gap 0.3s;
+}
+.btn-text:hover { gap: 1rem; }
+
+/* PAGE HEADER */
+.page-header {
+  padding: 10rem 3rem 6rem; background: var(--charcoal);
+  position: relative; overflow: hidden;
+}
+.page-header-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 75% 50%, rgba(139,94,60,0.15) 0%, transparent 55%),
+              linear-gradient(160deg, #252118 0%, #1C1A17 60%, #201E19 100%);
+  z-index: 0;
+}
+.page-header-content { position: relative; z-index: 1; max-width: 700px; }
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 9vw, 8rem); line-height: 0.88;
+  letter-spacing: 0.02em; color: var(--ivory); margin-bottom: 1.5rem; margin-top: 1rem;
+}
+.page-title span { color: var(--bronze-light); }
+.page-desc {
+  font-size: 1.05rem; font-weight: 300; font-style: italic;
+  color: rgba(245,240,232,0.5); line-height: 1.75; max-width: 480px;
+}
+
+/* DATA GRID */
+.data-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.4rem 2rem; padding: 2rem 0;
+  border-top: 1px solid rgba(139,94,60,0.1);
+  border-bottom: 1px solid rgba(139,94,60,0.1);
+}
+.data-label {
+  font-family: 'Space Mono', monospace; font-size: 0.44rem;
+  letter-spacing: 0.28em; color: var(--text-ghost); text-transform: uppercase; margin-bottom: 0.3rem;
+}
+.data-val { font-size: 0.88rem; color: var(--text-secondary); }
+
+/* ARCHIVE ROWS */
+.archive-rows { display: flex; flex-direction: column; gap: 1px; background: rgba(139,94,60,0.07); }
+.archive-row {
+  display: grid; grid-template-columns: 70px 1fr 1fr 130px;
+  align-items: center; gap: 2rem; padding: 1.8rem 2.5rem;
+  background: var(--ivory-warm); transition: background 0.3s;
+  text-decoration: none;
+}
+.archive-row:hover { background: var(--ivory-deep); }
+.archive-row.dim { opacity: 0.5; pointer-events: none; }
+.ar-num { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.28em; color: var(--text-ghost); }
+.ar-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.55rem; letter-spacing: 0.03em; color: var(--charcoal); }
+.ar-loc { font-size: 0.86rem; font-style: italic; color: var(--text-secondary); }
+.ar-status { font-family: 'Space Mono', monospace; font-size: 0.44rem; letter-spacing: 0.2em; color: var(--bronze); text-transform: uppercase; text-align: right; }
+
+/* FOOTER */
+.site-footer { background: var(--charcoal); padding: 6rem 3rem 3rem; position: relative; }
+.site-footer::before { content: ''; position: absolute; top: 0; left: 3rem; right: 3rem; height: 1px; background: rgba(245,240,232,0.06); }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.25em; color: var(--ivory); margin-bottom: 1.2rem; }
+.footer-tagline { font-size: 0.88rem; font-style: italic; color: rgba(245,240,232,0.28); line-height: 1.7; max-width: 230px; }
+.footer-col-title { font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.36em; color: var(--bronze-light); text-transform: uppercase; margin-bottom: 1.3rem; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a { font-size: 0.88rem; color: rgba(245,240,232,0.25); text-decoration: none; transition: color 0.25s; }
+.footer-links a:hover { color: rgba(245,240,232,0.65); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 2rem; border-top: 1px solid rgba(245,240,232,0.05); }
+.footer-copy { font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.2em; color: rgba(245,240,232,0.15); text-transform: uppercase; }
+.footer-sign { font-size: 0.86rem; font-style: italic; color: var(--bronze-light); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes breathe { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.8; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.9s ease, transform 0.9s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.22s; } .d3 { transition-delay: 0.34s; } .d4 { transition-delay: 0.46s; }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .site-nav { padding: 1.4rem 1.5rem; }
+  .nav-links { display: none; }
+  .page-header { padding: 8rem 1.5rem 4rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .site-footer { padding: 4rem 1.5rem 2rem; }
+  .archive-row { grid-template-columns: 50px 1fr 100px; }
+  .ar-loc { display: none; }
+}
+</style>
+<style>
+.issue-hero { min-height: 100vh; background: var(--charcoal); position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 3rem 5rem; overflow: hidden; }
+.issue-hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 65% 35%, rgba(139,94,60,0.2) 0%, transparent 52%), linear-gradient(160deg, #252118 0%, #1C1A17 50%, #201E19 100%); z-index: 0; }
+.issue-fig { position: absolute; right: 4%; top: 0; bottom: 0; width: 48%; z-index: 1; overflow: hidden; }
+.issue-fig-inner { position: absolute; left: 50%; top: 5%; transform: translateX(-50%); width: 300px; height: 480px; }
+.if-glow { position: absolute; top: -10%; left: 50%; transform: translateX(-50%); width: 340px; height: 340px; background: radial-gradient(circle, rgba(196,132,90,0.09) 0%, transparent 65%); border-radius: 50%; }
+.if-head { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 136px; height: 162px; background: radial-gradient(ellipse at 50% 43%, rgba(160,104,46,0.18) 0%, rgba(120,78,38,0.13) 55%, transparent 80%); border-radius: 50% 50% 44% 44% / 56% 56% 44% 44%; }
+.if-body { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 218px; height: 338px; background: linear-gradient(175deg, rgba(122,80,38,0.17) 0%, rgba(92,60,28,0.21) 40%, rgba(56,37,16,0.14) 78%, transparent 100%); border-radius: 48% 48% 38% 38% / 38% 38% 62% 62%; }
+.issue-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 15%, rgba(28,26,23,0.7) 60%, var(--charcoal) 100%), linear-gradient(to right, rgba(28,26,23,0.6) 0%, transparent 50%); z-index: 2; }
+.issue-hero-aside { position: absolute; left: 3rem; top: 50%; transform: translateY(-50%); z-index: 3; opacity: 0; animation: fadeIn 1s ease 1.2s forwards; }
+.issue-aside-label { font-family: 'Space Mono', monospace; font-size: 0.44rem; letter-spacing: 0.3em; color: rgba(245,240,232,0.18); text-transform: uppercase; margin-bottom: 0.4rem; }
+.issue-aside-num { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; color: rgba(139,94,60,0.1); line-height: 1; }
+.issue-hero-content { position: relative; z-index: 3; max-width: 620px; opacity: 0; animation: fadeUp 1s ease 0.4s forwards; }
+.issue-hero-tag { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.38em; color: var(--bronze-light); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+.issue-hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--bronze-light); }
+.issue-hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 12vw, 11rem); line-height: 0.87; letter-spacing: 0.015em; color: var(--ivory); display: block; }
+.issue-hero-verb { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 12vw, 11rem); line-height: 0.87; letter-spacing: 0.015em; color: var(--bronze-light); display: block; margin-bottom: 2.5rem; }
+.issue-hero-sub { font-size: 1.02rem; font-weight: 300; font-style: italic; color: rgba(245,240,232,0.52); line-height: 1.75; max-width: 360px; }
+.issue-subnav { position: sticky; top: 0; z-index: 400; background: var(--ivory); border-bottom: 1px solid rgba(139,94,60,0.12); padding: 0 3rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 20px rgba(28,26,23,0.06); }
+.issue-subnav-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.12em; color: var(--charcoal); padding: 1.2rem 0; }
+.issue-subnav-links { display: flex; list-style: none; }
+.issue-subnav-links a { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.18em; color: var(--text-ghost); text-decoration: none; text-transform: uppercase; padding: 1.2rem 1.4rem; border-bottom: 2px solid transparent; display: block; transition: color 0.25s, border-color 0.25s; }
+.issue-subnav-links a:hover { color: var(--bronze); border-bottom-color: var(--bronze); }
+.profile-body { max-width: 760px; margin: 0 auto; padding: 7rem 3rem; }
+.profile-lede { font-size: clamp(1.3rem, 2.5vw, 1.75rem); font-weight: 300; font-style: italic; color: var(--text-secondary); line-height: 1.55; margin-bottom: 4rem; border-left: 3px solid var(--bronze); padding-left: 2rem; }
+.profile-text { font-size: 1.08rem; font-weight: 300; line-height: 1.9; color: var(--text-secondary); margin-bottom: 2rem; }
+.profile-text em { font-style: italic; color: var(--text-primary); }
+.profile-text strong { font-weight: 500; color: var(--charcoal); }
+.profile-pull { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 3.5vw, 3rem); line-height: 1.05; letter-spacing: 0.02em; color: var(--charcoal); margin: 4rem 0; padding: 3rem 0; border-top: 1px solid rgba(139,94,60,0.12); border-bottom: 1px solid rgba(139,94,60,0.12); }
+.profile-pull span { color: var(--bronze); }
+.data-bar { background: var(--charcoal); padding: 4rem 3rem; margin: 5rem -3rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+.db-label { font-family: 'Space Mono', monospace; font-size: 0.44rem; letter-spacing: 0.3em; color: rgba(245,240,232,0.3); text-transform: uppercase; margin-bottom: 0.6rem; }
+.db-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.03em; color: var(--ivory); line-height: 1; }
+.issue-contents { padding: 6rem 3rem; background: var(--ivory-warm); }
+.contents-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--charcoal); line-height: 1; margin: 1rem 0 3rem; }
+.contents-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(139,94,60,0.07); }
+.ci { background: var(--ivory-warm); padding: 2.5rem; transition: background 0.3s; cursor: pointer; }
+.ci:hover { background: var(--ivory-deep); }
+.ci-type { font-family: 'Space Mono', monospace; font-size: 0.44rem; letter-spacing: 0.28em; color: var(--bronze); text-transform: uppercase; margin-bottom: 1.2rem; }
+.ci-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.03em; color: var(--charcoal); margin-bottom: 0.4rem; }
+.ci-status { font-size: 0.82rem; font-style: italic; color: var(--text-ghost); }
+.next-issue { padding: 6rem 3rem; background: var(--charcoal); text-align: center; position: relative; overflow: hidden; }
+.next-ghost { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-family: 'Bebas Neue', sans-serif; font-size: 30vw; color: rgba(245,240,232,0.02); line-height: 1; pointer-events: none; white-space: nowrap; }
+.next-label { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.38em; color: var(--bronze-light); text-transform: uppercase; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+.next-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); color: var(--ivory); line-height: 1; margin-bottom: 1rem; position: relative; z-index: 1; }
+.next-sub { font-size: 1rem; font-style: italic; color: rgba(245,240,232,0.35); position: relative; z-index: 1; }
+@media (max-width: 768px) {
+  .issue-hero { padding: 0 1.5rem 4rem; }
+  .issue-hero-aside { display: none; }
+  .issue-subnav { padding: 0 1.5rem; }
+  .issue-subnav-links { display: none; }
+  .profile-body { padding: 5rem 1.5rem; }
+  .data-bar { grid-template-columns: 1fr 1fr; margin: 3rem -1.5rem; padding: 3rem 1.5rem; }
+  .issue-contents { padding: 4rem 1.5rem; }
+  .contents-grid { grid-template-columns: 1fr; }
+  .next-issue { padding: 4rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="nav">
+  <a href="index.html" class="nav-logo">Docs Africa</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="publication.html" class="nav-link">Publication</a></li>
+      <li><a href="archive.html" class="nav-link">Archive</a></li>
+      <li><a href="institution.html" class="nav-link">Institution</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+    </ul>
+    <a href="publication.html" class="nav-cta on-dark">All Issues</a>
+  </div>
+</nav>
+
+<section class="issue-hero">
+  <div class="issue-hero-bg"></div>
+  <div class="issue-fig">
+    <div class="issue-fig-inner">
+      <div class="if-glow"></div>
+      <div class="if-head"></div>
+      <div class="if-body"></div>
+    </div>
+  </div>
+  <div class="issue-hero-overlay"></div>
+  <div class="issue-hero-aside">
+    <div class="issue-aside-label">Issue</div>
+    <div class="issue-aside-num">001</div>
+  </div>
+  <div class="issue-hero-content">
+    <div class="issue-hero-tag">Docs Africa · Issue 001 · 2026</div>
+    <span class="issue-hero-name">NAZA</span>
+    <span class="issue-hero-verb">BUILDS.</span>
+    <p class="issue-hero-sub">He walked away from medicine because something louder was calling. Now he is building smart glasses from Aba.</p>
+  </div>
+</section>
+
+<div class="issue-subnav">
+  <div class="issue-subnav-title">NAZA BUILDS — Issue 001</div>
+  <ul class="issue-subnav-links">
+    <li><a href="#profile">Profile</a></li>
+    <li><a href="#film">Film</a></li>
+    <li><a href="#interview">Interview</a></li>
+    <li><a href="#shoot">Photoshoot</a></li>
+    <li><a href="#podcast">Podcast</a></li>
+  </ul>
+</div>
+
+<div id="profile" class="profile-body">
+  <div class="eyebrow reveal">The Profile · 5,200 words</div>
+  <p class="profile-lede reveal">The most socially validated career path in Nigeria is medicine. Your family understands it. Your community respects it. The ending is clear — Dr. Naza, done. He left it anyway.</p>
+  <p class="profile-text reveal">There is a specific kind of person who hears something so loud inside themselves that it drowns out everything else. The family expectations. The sunk cost of years already spent. The safety of the path already paved. Naza is that kind of person. And what he heard, eventually, was the sound of a problem nobody was solving.</p>
+  <p class="profile-text reveal"><em>Safety in Africa is broken.</em> Not in the abstract policy sense that gets written about in white papers. In the immediate, personal, everyday sense. The way a woman walking home at night has no recourse. The way an emergency can unfold with nobody knowing, nobody coming, nobody notified. Naza saw this not as a social problem but as an engineering problem. Which meant it had a solution. Which meant he had to build it.</p>
+  <div class="profile-pull reveal">"He left medicine not because he failed at it. He left because he heard something <span>louder.</span>"</div>
+  <p class="profile-text reveal">Jaga is what he built. An app-first safety platform — private circles, check-ins, a silent SOS that alerts your people without alerting the threat. And then the hardware: smart glasses that see what you see, a scrunchie with a hidden GSM chip, a tag the size of a coin that knows where you are. All of it built from Aba. Not Lagos. <strong>Aba.</strong></p>
+  <p class="profile-text reveal">That specificity matters. Aba is not where you are supposed to be building this. Aba is where you come from. Aba is the place people leave to go build somewhere else. Naza is building here on purpose. Because the problem he is solving is not a Lagos problem. It is not a Nairobi problem. It is everywhere, and Aba is as good a place as any to start — and better than most, because it is real.</p>
+  <p class="profile-text reveal">He is twenty-something years old. He has a co-founder who believes in this as much as he does. He has a product that exists and works and is already in people's hands. And he has the specific quality that makes a founder worth documenting — he is not building this because it is a good business opportunity. He is building it because he cannot imagine not building it. The problem will not leave him alone. <em>That</em> is the difference.</p>
+  <p class="profile-text reveal">The world was not watching. Docs Africa found him anyway. Now it will be.</p>
+</div>
+
+<div class="data-bar reveal">
+  <div><div class="db-label">Location</div><div class="db-val">Aba, Nigeria</div></div>
+  <div><div class="db-label">Company</div><div class="db-val">Jaga</div></div>
+  <div><div class="db-label">Field</div><div class="db-val">Safety Tech · Hardware</div></div>
+  <div><div class="db-label">From → To</div><div class="db-val">Medicine → Builder</div></div>
+</div>
+
+<section id="film" class="issue-contents">
+  <div class="eyebrow reveal">Everything In This Issue</div>
+  <div class="contents-title reveal">The Full Treatment.</div>
+  <div class="contents-grid reveal">
+    <div class="ci"><div class="ci-type">Short Film</div><div class="ci-title">NAZA BUILDS — THE FILM</div><div class="ci-status">Coming Soon · A builder, a city, a decision</div></div>
+    <div class="ci" id="interview"><div class="ci-type">Long Interview</div><div class="ci-title">NAZA IN CONVERSATION</div><div class="ci-status">Coming Soon · On medicine and obsession</div></div>
+    <div class="ci" id="shoot"><div class="ci-type">Editorial Photoshoot</div><div class="ci-title">NAZA — THE SHOOT</div><div class="ci-status">Coming Soon · Shot in Aba</div></div>
+    <div class="ci"><div class="ci-type">Behind The Scenes</div><div class="ci-title">NAZA — BTS</div><div class="ci-status">Coming Soon · Between takes</div></div>
+    <div class="ci" id="podcast"><div class="ci-type">Podcast · Audio + Video</div><div class="ci-title">WHILE THEY WERE BUILDING — EP.001</div><div class="ci-status">Coming Soon · An hour with Naza</div></div>
+    <div class="ci"><div class="ci-type">Archive Entry</div><div class="ci-title">NAZA — PERMANENT RECORD</div><div class="ci-status">Documented · Entry 001</div></div>
+  </div>
+</section>
+
+<section class="next-issue">
+  <div class="next-ghost">NEXT</div>
+  <div class="next-label">Coming — Issue 002</div>
+  <div class="next-title">The Next Legend<br>Is Being Found.</div>
+  <div class="next-sub">Docs Africa is already looking.</div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">Docs Africa</div><p class="footer-tagline">We make legends out of builders. The cultural institution documenting Africa's most important generation.</p></div>
+    <div><div class="footer-col-title">Publication</div><ul class="footer-links"><li><a href="publication.html">Issues</a></li><li><a href="publication.html">Profiles</a></li><li><a href="publication.html">Films</a></li><li><a href="publication.html">Interviews</a></li></ul></div>
+    <div><div class="footer-col-title">Institution</div><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="institution.html">Award Nights</a></li><li><a href="archive.html">The Archive</a></li></ul></div>
+    <div><div class="footer-col-title">Connect</div><ul class="footer-links"><li><a href="#">Instagram</a></li><li><a href="#">X / Twitter</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">Newsletter</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><div class="footer-copy">© 2026 Docs Africa — All Rights Reserved</div><div class="footer-sign">While They Were Building.</div></div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 80);
+}, { passive: true });
+const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('in'); }), {threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

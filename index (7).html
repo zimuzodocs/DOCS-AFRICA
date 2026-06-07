@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOCS AFRICA — We Make Legends Out of Builders</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --ivory: #F5F0E8;
+  --ivory-warm: #EDE6D6;
+  --ivory-deep: #E2D9C6;
+  --charcoal: #1C1A17;
+  --charcoal-soft: #2A2721;
+  --bronze: #8B5E3C;
+  --bronze-light: #C4845A;
+  --text-primary: #1C1A17;
+  --text-secondary: #5C5649;
+  --text-ghost: #9C9488;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--ivory); color: var(--text-primary); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.028; pointer-events: none; z-index: 9000;
+}
+
+/* NAV */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  padding: 1.6rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+.site-nav.scrolled {
+  background: rgba(245,240,232,0.96);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(139,94,60,0.1);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.35rem; letter-spacing: 0.28em;
+  color: var(--ivory); text-decoration: none; transition: color 0.3s;
+}
+.nav-logo.dark { color: var(--charcoal); }
+.site-nav.scrolled .nav-logo { color: var(--charcoal); }
+.nav-right { display: flex; align-items: center; gap: 2.5rem; }
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-link {
+  font-family: 'Space Mono', monospace; font-size: 0.56rem;
+  letter-spacing: 0.18em; color: rgba(245,240,232,0.6);
+  text-decoration: none; text-transform: uppercase; transition: color 0.25s;
+}
+.nav-link.dark { color: var(--text-secondary); }
+.nav-link:hover { color: var(--bronze-light); }
+.nav-link.dark:hover { color: var(--bronze); }
+.nav-link.active { color: var(--bronze-light); }
+.nav-link.active.dark { color: var(--bronze); }
+.site-nav.scrolled .nav-link { color: var(--text-secondary); }
+.site-nav.scrolled .nav-link:hover { color: var(--bronze); }
+.site-nav.scrolled .nav-link.active { color: var(--bronze); }
+.nav-cta {
+  font-family: 'Space Mono', monospace; font-size: 0.56rem;
+  letter-spacing: 0.18em; padding: 0.65rem 1.3rem;
+  text-decoration: none; text-transform: uppercase; transition: background 0.25s;
+  background: var(--bronze-light); color: var(--ivory);
+}
+.nav-cta:hover { background: var(--bronze); }
+.nav-cta.on-dark { background: rgba(245,240,232,0.15); color: var(--ivory); border: 1px solid rgba(245,240,232,0.2); }
+.nav-cta.on-dark:hover { background: var(--bronze); border-color: var(--bronze); }
+.site-nav.scrolled .nav-cta { background: var(--charcoal); color: var(--ivory); }
+.site-nav.scrolled .nav-cta:hover { background: var(--bronze); }
+
+/* MARQUEE */
+.marquee-bar {
+  overflow: hidden;
+  border-top: 1px solid rgba(139,94,60,0.12);
+  border-bottom: 1px solid rgba(139,94,60,0.12);
+  padding: 1.1rem 0; background: var(--ivory-warm);
+}
+.marquee-track { display: flex; animation: marquee 28s linear infinite; white-space: nowrap; }
+.marquee-item {
+  font-family: 'Bebas Neue', sans-serif; font-size: 0.82rem;
+  letter-spacing: 0.3em; color: var(--text-ghost);
+  padding: 0 2.2rem; text-transform: uppercase; flex-shrink: 0;
+}
+.marquee-item b { color: var(--bronze); font-weight: 400; margin-right: 2rem; }
+
+/* EYEBROW */
+.eyebrow {
+  font-family: 'Space Mono', monospace; font-size: 0.54rem;
+  letter-spacing: 0.4em; color: var(--bronze); text-transform: uppercase;
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+}
+.eyebrow::after { content: ''; flex: 1; height: 1px; background: rgba(139,94,60,0.16); }
+.eyebrow.light { color: var(--bronze-light); }
+.eyebrow.light::after { background: rgba(245,240,232,0.1); }
+.eyebrow.center { justify-content: center; }
+.eyebrow.center::after { display: none; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 1rem;
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; padding: 1.1rem 2rem; transition: background 0.3s ease, color 0.3s ease;
+  cursor: pointer; border: none;
+}
+.btn-dark { background: var(--charcoal); color: var(--ivory); }
+.btn-dark:hover { background: var(--bronze); }
+.btn-bronze { background: var(--bronze); color: var(--ivory); }
+.btn-bronze:hover { background: var(--bronze-light); }
+.btn-outline { background: transparent; color: var(--charcoal); border: 1px solid rgba(139,94,60,0.3); }
+.btn-outline:hover { background: var(--charcoal); color: var(--ivory); }
+.btn-ghost-light {
+  background: transparent; color: rgba(245,240,232,0.5);
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: color 0.25s;
+}
+.btn-ghost-light:hover { color: var(--ivory); }
+.btn-text {
+  font-family: 'Space Mono', monospace; font-size: 0.56rem;
+  letter-spacing: 0.2em; color: var(--bronze); text-decoration: none;
+  text-transform: uppercase; display: inline-flex; align-items: center; gap: 0.6rem; transition: gap 0.3s;
+}
+.btn-text:hover { gap: 1rem; }
+
+/* PAGE HEADER */
+.page-header {
+  padding: 10rem 3rem 6rem; background: var(--charcoal);
+  position: relative; overflow: hidden;
+}
+.page-header-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 75% 50%, rgba(139,94,60,0.15) 0%, transparent 55%),
+              linear-gradient(160deg, #252118 0%, #1C1A17 60%, #201E19 100%);
+  z-index: 0;
+}
+.page-header-content { position: relative; z-index: 1; max-width: 700px; }
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 9vw, 8rem); line-height: 0.88;
+  letter-spacing: 0.02em; color: var(--ivory); margin-bottom: 1.5rem; margin-top: 1rem;
+}
+.page-title span { color: var(--bronze-light); }
+.page-desc {
+  font-size: 1.05rem; font-weight: 300; font-style: italic;
+  color: rgba(245,240,232,0.5); line-height: 1.75; max-width: 480px;
+}
+
+/* DATA GRID */
+.data-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.4rem 2rem; padding: 2rem 0;
+  border-top: 1px solid rgba(139,94,60,0.1);
+  border-bottom: 1px solid rgba(139,94,60,0.1);
+}
+.data-label {
+  font-family: 'Space Mono', monospace; font-size: 0.44rem;
+  letter-spacing: 0.28em; color: var(--text-ghost); text-transform: uppercase; margin-bottom: 0.3rem;
+}
+.data-val { font-size: 0.88rem; color: var(--text-secondary); }
+
+/* ARCHIVE ROWS */
+.archive-rows { display: flex; flex-direction: column; gap: 1px; background: rgba(139,94,60,0.07); }
+.archive-row {
+  display: grid; grid-template-columns: 70px 1fr 1fr 130px;
+  align-items: center; gap: 2rem; padding: 1.8rem 2.5rem;
+  background: var(--ivory-warm); transition: background 0.3s;
+  text-decoration: none;
+}
+.archive-row:hover { background: var(--ivory-deep); }
+.archive-row.dim { opacity: 0.5; pointer-events: none; }
+.ar-num { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.28em; color: var(--text-ghost); }
+.ar-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.55rem; letter-spacing: 0.03em; color: var(--charcoal); }
+.ar-loc { font-size: 0.86rem; font-style: italic; color: var(--text-secondary); }
+.ar-status { font-family: 'Space Mono', monospace; font-size: 0.44rem; letter-spacing: 0.2em; color: var(--bronze); text-transform: uppercase; text-align: right; }
+
+/* FOOTER */
+.site-footer { background: var(--charcoal); padding: 6rem 3rem 3rem; position: relative; }
+.site-footer::before { content: ''; position: absolute; top: 0; left: 3rem; right: 3rem; height: 1px; background: rgba(245,240,232,0.06); }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.25em; color: var(--ivory); margin-bottom: 1.2rem; }
+.footer-tagline { font-size: 0.88rem; font-style: italic; color: rgba(245,240,232,0.28); line-height: 1.7; max-width: 230px; }
+.footer-col-title { font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.36em; color: var(--bronze-light); text-transform: uppercase; margin-bottom: 1.3rem; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a { font-size: 0.88rem; color: rgba(245,240,232,0.25); text-decoration: none; transition: color 0.25s; }
+.footer-links a:hover { color: rgba(245,240,232,0.65); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 2rem; border-top: 1px solid rgba(245,240,232,0.05); }
+.footer-copy { font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.2em; color: rgba(245,240,232,0.15); text-transform: uppercase; }
+.footer-sign { font-size: 0.86rem; font-style: italic; color: var(--bronze-light); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes breathe { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.8; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.9s ease, transform 0.9s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.22s; } .d3 { transition-delay: 0.34s; } .d4 { transition-delay: 0.46s; }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .site-nav { padding: 1.4rem 1.5rem; }
+  .nav-links { display: none; }
+  .page-header { padding: 8rem 1.5rem 4rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .site-footer { padding: 4rem 1.5rem 2rem; }
+  .archive-row { grid-template-columns: 50px 1fr 100px; }
+  .ar-loc { display: none; }
+}
+</style>
+<style>
+.hero {
+  min-height: 100vh; background: var(--charcoal);
+  position: relative; display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 0 3rem 5rem; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 35%, rgba(139,94,60,0.2) 0%, transparent 55%),
+              radial-gradient(ellipse at 18% 72%, rgba(196,132,90,0.06) 0%, transparent 45%),
+              linear-gradient(155deg, #252118 0%, #1C1A17 48%, #201E19 100%);
+  z-index: 0;
+}
+.hero-figure { position: absolute; right: 5%; top: 0; bottom: 0; width: 46%; z-index: 1; overflow: hidden; }
+.fig-wrap { position: absolute; left: 50%; top: 7%; transform: translateX(-50%); width: 290px; height: 460px; }
+.fig-glow { position: absolute; top: -8%; left: 50%; transform: translateX(-50%); width: 320px; height: 320px; background: radial-gradient(circle, rgba(196,132,90,0.08) 0%, transparent 65%); border-radius: 50%; }
+.fig-head { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 130px; height: 158px; background: radial-gradient(ellipse at 50% 44%, rgba(158,103,47,0.17) 0%, rgba(118,77,37,0.12) 55%, transparent 80%); border-radius: 50% 50% 44% 44% / 56% 56% 44% 44%; }
+.fig-body { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 210px; height: 325px; background: linear-gradient(175deg, rgba(120,78,38,0.16) 0%, rgba(90,58,27,0.2) 40%, rgba(55,36,16,0.14) 78%, transparent 100%); border-radius: 48% 48% 38% 38% / 38% 38% 62% 62%; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 18%, rgba(28,26,23,0.65) 62%, var(--charcoal) 100%), linear-gradient(to right, rgba(28,26,23,0.55) 0%, transparent 52%); z-index: 2; }
+.hero-aside { position: absolute; left: 3rem; top: 50%; transform: translateY(-50%); z-index: 3; opacity: 0; animation: fadeIn 1s ease 1.3s forwards; }
+.aside-label { font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.32em; color: rgba(245,240,232,0.22); text-transform: uppercase; margin-bottom: 0.4rem; }
+.aside-num { font-family: 'Bebas Neue', sans-serif; font-size: 5.5rem; color: rgba(139,94,60,0.1); line-height: 1; }
+.hero-side { position: absolute; right: 2.5rem; top: 50%; transform: translateY(-50%) rotate(90deg); transform-origin: center; font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.42em; color: rgba(245,240,232,0.2); text-transform: uppercase; white-space: nowrap; z-index: 3; opacity: 0; animation: fadeIn 1s ease 1.7s forwards; }
+.hero-content { position: relative; z-index: 3; max-width: 650px; opacity: 0; animation: fadeUp 1s ease 0.5s forwards; }
+.hero-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.54rem; letter-spacing: 0.38em; color: var(--bronze-light); text-transform: uppercase; margin-bottom: 1.6rem; display: flex; align-items: center; gap: 1rem; }
+.hero-eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--bronze-light); }
+.hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5.5rem, 13vw, 12rem); line-height: 0.87; letter-spacing: 0.015em; margin-bottom: 2.5rem; }
+.hero-title-a { color: var(--ivory); display: block; }
+.hero-title-b { color: var(--bronze-light); display: block; }
+.hero-sub { font-size: 1.05rem; font-weight: 300; font-style: italic; color: rgba(245,240,232,0.55); line-height: 1.72; max-width: 370px; margin-bottom: 3rem; }
+.hero-actions { display: flex; align-items: center; gap: 2rem; }
+.scroll-cue { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 0.55rem; opacity: 0; animation: fadeIn 1s ease 2.1s forwards; }
+.scroll-cue span { font-family: 'Space Mono', monospace; font-size: 0.44rem; letter-spacing: 0.32em; color: rgba(245,240,232,0.2); text-transform: uppercase; }
+.scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(196,132,90,0.45), transparent); animation: breathe 2.5s ease infinite; }
+.manifesto { padding: 10rem 3rem; position: relative; overflow: hidden; }
+.manifesto-ghost { position: absolute; left: -2%; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 30vw; color: rgba(139,94,60,0.04); line-height: 1; pointer-events: none; user-select: none; white-space: nowrap; }
+.manifesto-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+.manifesto-body { font-size: clamp(1.6rem, 3.2vw, 2.75rem); font-weight: 300; line-height: 1.38; color: var(--text-primary); margin-bottom: 1.8rem; letter-spacing: -0.01em; }
+.manifesto-body em { font-style: italic; color: var(--bronze); }
+.manifesto-stamp { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 5.5vw, 5rem); line-height: 1; letter-spacing: 0.03em; color: var(--charcoal); border-top: 2px solid var(--bronze); padding-top: 3rem; margin-top: 4rem; }
+.manifesto-stamp span { color: var(--bronze); }
+.current-issue { padding: 0 3rem 10rem; }
+.issue-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid rgba(139,94,60,0.13); min-height: 86vh; }
+.issue-visual { position: relative; background: radial-gradient(ellipse at 50% 30%, rgba(139,94,60,0.18) 0%, transparent 58%), linear-gradient(168deg, #252118 0%, #1C1A17 55%, #201E19 100%); overflow: hidden; min-height: 560px; }
+.issue-portrait { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.portrait-wrap { position: relative; width: 272px; height: 428px; margin-top: -28px; }
+.p-glow { position: absolute; top: -12%; left: 50%; transform: translateX(-50%); width: 285px; height: 285px; background: radial-gradient(circle, rgba(196,132,90,0.07) 0%, transparent 65%); border-radius: 50%; }
+.p-head { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 146px; background: radial-gradient(ellipse at 50% 42%, rgba(155,100,46,0.16) 0%, rgba(115,75,35,0.11) 55%, transparent 80%); border-radius: 50% 50% 44% 44% / 55% 55% 45% 45%; }
+.p-body { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 192px; height: 302px; background: linear-gradient(175deg, rgba(118,76,36,0.16) 0%, rgba(88,57,27,0.19) 42%, rgba(54,35,15,0.13) 78%, transparent 100%); border-radius: 47% 47% 38% 38% / 38% 38% 62% 62%; }
+.issue-loc-tag { position: absolute; top: 2rem; left: 2rem; font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.28em; color: rgba(196,132,90,0.38); text-transform: uppercase; z-index: 2; }
+.issue-num-bg { position: absolute; bottom: 1rem; left: 1.5rem; font-family: 'Bebas Neue', sans-serif; font-size: 9rem; color: rgba(139,94,60,0.06); line-height: 1; z-index: 1; }
+.issue-content { padding: 4.5rem; display: flex; flex-direction: column; justify-content: space-between; border-left: 1px solid rgba(139,94,60,0.13); background: var(--ivory); }
+.issue-tag { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.3em; color: var(--bronze); text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.8rem; }
+.issue-tag::before { content: ''; width: 14px; height: 1px; background: var(--bronze); }
+.issue-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.8rem, 6.5vw, 6.2rem); line-height: 0.88; letter-spacing: 0.02em; color: var(--charcoal); }
+.issue-verb { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.8rem, 6.5vw, 6.2rem); line-height: 0.88; letter-spacing: 0.02em; color: var(--bronze); margin-bottom: 2.8rem; }
+.issue-excerpt { font-size: 1.02rem; font-weight: 300; font-style: italic; color: var(--text-secondary); line-height: 1.8; margin-bottom: 3rem; }
+.worlds { background: var(--charcoal); padding: 9rem 3rem; position: relative; overflow: hidden; }
+.worlds::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(196,132,90,0.25), transparent); }
+.worlds-intro { max-width: 580px; margin-bottom: 5.5rem; }
+.worlds-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 5.5vw, 4.5rem); color: var(--ivory); line-height: 1; letter-spacing: 0.02em; margin-top: 1.2rem; }
+.worlds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(245,240,232,0.05); }
+.world-card { background: var(--charcoal); padding: 3.5rem 2.8rem; text-decoration: none; display: block; position: relative; overflow: hidden; transition: background 0.4s ease; }
+.world-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--bronze); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+.world-card:hover { background: rgba(38,34,28,0.98); }
+.world-card:hover::before { transform: scaleX(1); }
+.world-card-num { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.3em; color: rgba(245,240,232,0.16); margin-bottom: 2.5rem; }
+.world-card-label { font-family: 'Bebas Neue', sans-serif; font-size: 2.1rem; letter-spacing: 0.04em; color: var(--ivory); line-height: 1; margin-bottom: 1.2rem; }
+.world-card-desc { font-size: 0.9rem; font-weight: 300; color: rgba(245,240,232,0.38); line-height: 1.72; margin-bottom: 2.5rem; }
+.world-card-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.world-card-list li { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.2em; color: rgba(245,240,232,0.24); text-transform: uppercase; display: flex; align-items: center; gap: 0.6rem; }
+.world-card-list li::before { content: ''; width: 10px; height: 1px; background: rgba(139,94,60,0.4); }
+.world-arrow { position: absolute; bottom: 2.5rem; right: 2.5rem; font-family: 'Space Mono', monospace; font-size: 0.5rem; color: rgba(139,94,60,0.4); letter-spacing: 0.1em; transition: color 0.3s, transform 0.3s; }
+.world-card:hover .world-arrow { color: var(--bronze-light); transform: translateX(4px); }
+.archive-preview { padding: 9rem 3rem; background: var(--ivory-warm); }
+.archive-preview-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; }
+.archive-preview-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 4.5vw, 3.8rem); color: var(--charcoal); line-height: 1; margin-top: 0.8rem; }
+.find-section { padding: 9rem 3rem; background: var(--bronze); position: relative; overflow: hidden; }
+.find-ghost { position: absolute; right: -2%; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 24vw; color: rgba(28,26,23,0.1); line-height: 1; pointer-events: none; user-select: none; white-space: nowrap; }
+.find-inner { max-width: 760px; position: relative; z-index: 1; }
+.find-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 9vw, 8rem); line-height: 0.88; letter-spacing: 0.02em; color: var(--charcoal); margin-bottom: 2.2rem; }
+.find-body { font-size: 1.05rem; font-weight: 300; font-style: italic; color: rgba(28,26,23,0.58); max-width: 460px; line-height: 1.78; }
+@media (max-width: 768px) {
+  .hero { padding: 0 1.5rem 4rem; }
+  .hero-aside, .hero-side { display: none; }
+  .manifesto { padding: 6rem 1.5rem; }
+  .current-issue { padding: 0 1.5rem 6rem; }
+  .issue-grid { grid-template-columns: 1fr; }
+  .issue-visual { min-height: 340px; }
+  .worlds { padding: 5rem 1.5rem; }
+  .worlds-grid { grid-template-columns: 1fr; }
+  .archive-preview { padding: 5rem 1.5rem; }
+  .archive-preview-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .find-section { padding: 5rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="nav">
+  <a href="index.html" class="nav-logo">Docs Africa</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="publication.html" class="nav-link">Publication</a></li>
+      <li><a href="archive.html" class="nav-link">Archive</a></li>
+      <li><a href="institution.html" class="nav-link">Institution</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+    </ul>
+    <a href="issue-001.html" class="nav-cta on-dark">Current Issue</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-figure" id="heroFig">
+    <div class="fig-wrap">
+      <div class="fig-glow"></div>
+      <div class="fig-head"></div>
+      <div class="fig-body"></div>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-aside">
+    <div class="aside-label">Subject</div>
+    <div class="aside-num">01</div>
+  </div>
+  <div class="hero-side">Aba, Nigeria · 2026 · Volume I</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Docs Africa — The Discovery</div>
+    <h1 class="hero-title">
+      <span class="hero-title-a">DOCS</span>
+      <span class="hero-title-b">AFRICA</span>
+    </h1>
+    <p class="hero-sub">We make legends out of builders. Nobody knew them before we found them.</p>
+    <div class="hero-actions">
+      <a href="issue-001.html" class="btn btn-bronze">Read Issue 001</a>
+      <a href="about.html" class="btn-ghost-light">What We Are →</a>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <div class="marquee-item"><b>·</b> Document</div>
+    <div class="marquee-item"><b>·</b> Discover</div>
+    <div class="marquee-item"><b>·</b> Archive</div>
+    <div class="marquee-item"><b>·</b> Celebrate</div>
+    <div class="marquee-item"><b>·</b> While They Were Building</div>
+    <div class="marquee-item"><b>·</b> We Make Legends</div>
+    <div class="marquee-item"><b>·</b> Document</div>
+    <div class="marquee-item"><b>·</b> Discover</div>
+    <div class="marquee-item"><b>·</b> Archive</div>
+    <div class="marquee-item"><b>·</b> Celebrate</div>
+    <div class="marquee-item"><b>·</b> While They Were Building</div>
+    <div class="marquee-item"><b>·</b> We Make Legends</div>
+  </div>
+</div>
+
+<section class="manifesto">
+  <div class="manifesto-ghost">DOCS</div>
+  <div class="manifesto-inner">
+    <div class="eyebrow reveal">The Manifesto</div>
+    <p class="manifesto-body reveal d1">African builders are being <em>archived wrong.</em> The continent is in the middle of something historically significant and the documentation is shallow. You get the funding round. You get the valuation. You never get <em>the person.</em></p>
+    <p class="manifesto-body reveal d2" style="margin-top:1.6rem;">Nobody knew Rihanna when she was just a little gyal on the island. She got <em>discovered.</em> Docs Africa discovers the builders building Africa — and in doing so, <em>discovers Africa.</em></p>
+    <div class="manifesto-stamp reveal d3">We Make <span>Legends</span><br>Out of Builders.</div>
+  </div>
+</section>
+
+<section class="current-issue">
+  <div class="eyebrow reveal" style="margin-bottom:3rem;">Current Issue — 001</div>
+  <div class="issue-grid reveal">
+    <div class="issue-visual">
+      <div class="issue-loc-tag">Aba, Nigeria</div>
+      <div class="issue-portrait">
+        <div class="portrait-wrap">
+          <div class="p-glow"></div>
+          <div class="p-head"></div>
+          <div class="p-body"></div>
+        </div>
+      </div>
+      <div class="issue-num-bg">01</div>
+    </div>
+    <div class="issue-content">
+      <div>
+        <div class="issue-tag">Technology · Safety · Hardware</div>
+        <div class="issue-name">NAZA</div>
+        <div class="issue-verb">BUILDS.</div>
+        <p class="issue-excerpt">He walked away from medicine — from the most socially validated career in Nigeria — because something louder was calling. Now he is building smart glasses from Aba. The world was not watching. It will be now.</p>
+        <div class="data-grid" style="margin-bottom:3rem;">
+          <div><div class="data-label">Origin</div><div class="data-val">Aba, Nigeria</div></div>
+          <div><div class="data-label">Company</div><div class="data-val">Jaga — Safety Tech</div></div>
+          <div><div class="data-label">From</div><div class="data-val">Medical Student</div></div>
+          <div><div class="data-label">To</div><div class="data-val">CTO & Co-Founder</div></div>
+        </div>
+      </div>
+      <a href="issue-001.html" class="btn btn-dark" style="align-self:flex-start;">Read Full Issue →</a>
+    </div>
+  </div>
+</section>
+
+<section class="worlds">
+  <div class="worlds-intro reveal">
+    <div class="eyebrow light">The Institution</div>
+    <div class="worlds-title">Three Worlds.<br>One Institution.</div>
+  </div>
+  <div class="worlds-grid">
+    <a href="publication.html" class="world-card reveal">
+      <div class="world-card-num">01</div>
+      <div class="world-card-label">The Publication</div>
+      <p class="world-card-desc">Everything Docs Africa produces and publishes. The evidence of the discovery made visible.</p>
+      <ul class="world-card-list">
+        <li>Issues</li><li>Written Profiles</li><li>Films & Documentaries</li><li>Interviews & Podcasts</li><li>Photoshoots</li>
+      </ul>
+      <div class="world-arrow">→</div>
+    </a>
+    <a href="institution.html" class="world-card reveal d1">
+      <div class="world-card-num">02</div>
+      <div class="world-card-label">The Institution</div>
+      <p class="world-card-desc">What Docs Africa does beyond publishing. The discovery made tangible and permanent.</p>
+      <ul class="world-card-list">
+        <li>Award Nights</li><li>Builder Network</li><li>Events</li><li>Partnerships</li>
+      </ul>
+      <div class="world-arrow">→</div>
+    </a>
+    <a href="archive.html" class="world-card reveal d2">
+      <div class="world-card-num">03</div>
+      <div class="world-card-label">The Archive</div>
+      <p class="world-card-desc">The permanent record. Every builder ever documented. This is what lasts fifty years.</p>
+      <ul class="world-card-list">
+        <li>All Builders Indexed</li><li>Searchable Record</li><li>Growing Continuously</li><li>The Historical Truth</li>
+      </ul>
+      <div class="world-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<section class="archive-preview">
+  <div class="archive-preview-header reveal">
+    <div>
+      <div class="eyebrow" style="margin-bottom:0.7rem;">The Archive</div>
+      <div class="archive-preview-title">Every Builder.<br>Permanent Record.</div>
+    </div>
+    <a href="archive.html" class="btn-text">Full Archive →</a>
+  </div>
+  <div class="archive-rows reveal">
+    <a href="issue-001.html" class="archive-row">
+      <div class="ar-num">001</div>
+      <div class="ar-name">NAZA</div>
+      <div class="ar-loc">Aba, Nigeria — Safety Tech · Jaga</div>
+      <div class="ar-status">Documented ↗</div>
+    </a>
+    <div class="archive-row dim">
+      <div class="ar-num">002</div>
+      <div class="ar-name" style="color:var(--text-ghost);">—</div>
+      <div class="ar-loc">Being discovered</div>
+      <div class="ar-status" style="color:var(--text-ghost);">In Discovery</div>
+    </div>
+    <div class="archive-row dim">
+      <div class="ar-num">003</div>
+      <div class="ar-name" style="color:var(--text-ghost);">—</div>
+      <div class="ar-loc">Being discovered</div>
+      <div class="ar-status" style="color:var(--text-ghost);">In Discovery</div>
+    </div>
+    <div class="archive-row dim">
+      <div class="ar-num">004</div>
+      <div class="ar-name" style="color:var(--text-ghost);">—</div>
+      <div class="ar-loc">Being discovered</div>
+      <div class="ar-status" style="color:var(--text-ghost);">In Discovery</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:3rem;">
+    <a href="archive.html" class="btn btn-outline">View Full Archive</a>
+  </div>
+</section>
+
+<section class="find-section">
+  <div class="find-ghost">FOUND</div>
+  <div class="find-inner reveal">
+    <div class="find-title">We<br>Find<br>You.</div>
+    <p class="find-body">There is no application. No form. No submission portal. If you are building something that matters, Docs Africa is already looking. The discovery finds you — not the other way around.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Docs Africa</div>
+      <p class="footer-tagline">We make legends out of builders. The cultural institution documenting Africa's most important generation.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Publication</div>
+      <ul class="footer-links">
+        <li><a href="publication.html">Issues</a></li>
+        <li><a href="publication.html">Profiles</a></li>
+        <li><a href="publication.html">Films</a></li>
+        <li><a href="publication.html">Interviews</a></li>
+        <li><a href="publication.html">Podcasts</a></li>
+        <li><a href="publication.html">Photoshoots</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Institution</div>
+      <ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="institution.html">Award Nights</a></li>
+        <li><a href="institution.html">Network</a></li>
+        <li><a href="institution.html">Partnerships</a></li>
+        <li><a href="archive.html">The Archive</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Connect</div>
+      <ul class="footer-links">
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">X / Twitter</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Newsletter</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Docs Africa — All Rights Reserved</div>
+    <div class="footer-sign">While They Were Building.</div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+const heroFig = document.getElementById('heroFig');
+window.addEventListener('scroll', () => {
+  if (heroFig) heroFig.style.transform = 'translateY(' + (window.scrollY * 0.22) + 'px)';
+}, { passive: true });
+const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('in'); }), {threshold:0.07, rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

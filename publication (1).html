@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Publication — Docs Africa</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --ivory: #F5F0E8;
+  --ivory-warm: #EDE6D6;
+  --ivory-deep: #E2D9C6;
+  --charcoal: #1C1A17;
+  --charcoal-soft: #2A2721;
+  --bronze: #8B5E3C;
+  --bronze-light: #C4845A;
+  --text-primary: #1C1A17;
+  --text-secondary: #5C5649;
+  --text-ghost: #9C9488;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--ivory); color: var(--text-primary); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.028; pointer-events: none; z-index: 9000;
+}
+
+/* NAV */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  padding: 1.6rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+.site-nav.scrolled {
+  background: rgba(245,240,232,0.96);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 rgba(139,94,60,0.1);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.35rem; letter-spacing: 0.28em;
+  color: var(--ivory); text-decoration: none; transition: color 0.3s;
+}
+.nav-logo.dark { color: var(--charcoal); }
+.site-nav.scrolled .nav-logo { color: var(--charcoal); }
+.nav-right { display: flex; align-items: center; gap: 2.5rem; }
+.nav-links { display: flex; gap: 2.2rem; list-style: none; }
+.nav-link {
+  font-family: 'Space Mono', monospace; font-size: 0.56rem;
+  letter-spacing: 0.18em; color: rgba(245,240,232,0.6);
+  text-decoration: none; text-transform: uppercase; transition: color 0.25s;
+}
+.nav-link.dark { color: var(--text-secondary); }
+.nav-link:hover { color: var(--bronze-light); }
+.nav-link.dark:hover { color: var(--bronze); }
+.nav-link.active { color: var(--bronze-light); }
+.nav-link.active.dark { color: var(--bronze); }
+.site-nav.scrolled .nav-link { color: var(--text-secondary); }
+.site-nav.scrolled .nav-link:hover { color: var(--bronze); }
+.site-nav.scrolled .nav-link.active { color: var(--bronze); }
+.nav-cta {
+  font-family: 'Space Mono', monospace; font-size: 0.56rem;
+  letter-spacing: 0.18em; padding: 0.65rem 1.3rem;
+  text-decoration: none; text-transform: uppercase; transition: background 0.25s;
+  background: var(--bronze-light); color: var(--ivory);
+}
+.nav-cta:hover { background: var(--bronze); }
+.nav-cta.on-dark { background: rgba(245,240,232,0.15); color: var(--ivory); border: 1px solid rgba(245,240,232,0.2); }
+.nav-cta.on-dark:hover { background: var(--bronze); border-color: var(--bronze); }
+.site-nav.scrolled .nav-cta { background: var(--charcoal); color: var(--ivory); }
+.site-nav.scrolled .nav-cta:hover { background: var(--bronze); }
+
+/* MARQUEE */
+.marquee-bar {
+  overflow: hidden;
+  border-top: 1px solid rgba(139,94,60,0.12);
+  border-bottom: 1px solid rgba(139,94,60,0.12);
+  padding: 1.1rem 0; background: var(--ivory-warm);
+}
+.marquee-track { display: flex; animation: marquee 28s linear infinite; white-space: nowrap; }
+.marquee-item {
+  font-family: 'Bebas Neue', sans-serif; font-size: 0.82rem;
+  letter-spacing: 0.3em; color: var(--text-ghost);
+  padding: 0 2.2rem; text-transform: uppercase; flex-shrink: 0;
+}
+.marquee-item b { color: var(--bronze); font-weight: 400; margin-right: 2rem; }
+
+/* EYEBROW */
+.eyebrow {
+  font-family: 'Space Mono', monospace; font-size: 0.54rem;
+  letter-spacing: 0.4em; color: var(--bronze); text-transform: uppercase;
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+}
+.eyebrow::after { content: ''; flex: 1; height: 1px; background: rgba(139,94,60,0.16); }
+.eyebrow.light { color: var(--bronze-light); }
+.eyebrow.light::after { background: rgba(245,240,232,0.1); }
+.eyebrow.center { justify-content: center; }
+.eyebrow.center::after { display: none; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 1rem;
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; padding: 1.1rem 2rem; transition: background 0.3s ease, color 0.3s ease;
+  cursor: pointer; border: none;
+}
+.btn-dark { background: var(--charcoal); color: var(--ivory); }
+.btn-dark:hover { background: var(--bronze); }
+.btn-bronze { background: var(--bronze); color: var(--ivory); }
+.btn-bronze:hover { background: var(--bronze-light); }
+.btn-outline { background: transparent; color: var(--charcoal); border: 1px solid rgba(139,94,60,0.3); }
+.btn-outline:hover { background: var(--charcoal); color: var(--ivory); }
+.btn-ghost-light {
+  background: transparent; color: rgba(245,240,232,0.5);
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: color 0.25s;
+}
+.btn-ghost-light:hover { color: var(--ivory); }
+.btn-text {
+  font-family: 'Space Mono', monospace; font-size: 0.56rem;
+  letter-spacing: 0.2em; color: var(--bronze); text-decoration: none;
+  text-transform: uppercase; display: inline-flex; align-items: center; gap: 0.6rem; transition: gap 0.3s;
+}
+.btn-text:hover { gap: 1rem; }
+
+/* PAGE HEADER */
+.page-header {
+  padding: 10rem 3rem 6rem; background: var(--charcoal);
+  position: relative; overflow: hidden;
+}
+.page-header-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 75% 50%, rgba(139,94,60,0.15) 0%, transparent 55%),
+              linear-gradient(160deg, #252118 0%, #1C1A17 60%, #201E19 100%);
+  z-index: 0;
+}
+.page-header-content { position: relative; z-index: 1; max-width: 700px; }
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 9vw, 8rem); line-height: 0.88;
+  letter-spacing: 0.02em; color: var(--ivory); margin-bottom: 1.5rem; margin-top: 1rem;
+}
+.page-title span { color: var(--bronze-light); }
+.page-desc {
+  font-size: 1.05rem; font-weight: 300; font-style: italic;
+  color: rgba(245,240,232,0.5); line-height: 1.75; max-width: 480px;
+}
+
+/* DATA GRID */
+.data-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.4rem 2rem; padding: 2rem 0;
+  border-top: 1px solid rgba(139,94,60,0.1);
+  border-bottom: 1px solid rgba(139,94,60,0.1);
+}
+.data-label {
+  font-family: 'Space Mono', monospace; font-size: 0.44rem;
+  letter-spacing: 0.28em; color: var(--text-ghost); text-transform: uppercase; margin-bottom: 0.3rem;
+}
+.data-val { font-size: 0.88rem; color: var(--text-secondary); }
+
+/* ARCHIVE ROWS */
+.archive-rows { display: flex; flex-direction: column; gap: 1px; background: rgba(139,94,60,0.07); }
+.archive-row {
+  display: grid; grid-template-columns: 70px 1fr 1fr 130px;
+  align-items: center; gap: 2rem; padding: 1.8rem 2.5rem;
+  background: var(--ivory-warm); transition: background 0.3s;
+  text-decoration: none;
+}
+.archive-row:hover { background: var(--ivory-deep); }
+.archive-row.dim { opacity: 0.5; pointer-events: none; }
+.ar-num { font-family: 'Space Mono', monospace; font-size: 0.48rem; letter-spacing: 0.28em; color: var(--text-ghost); }
+.ar-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.55rem; letter-spacing: 0.03em; color: var(--charcoal); }
+.ar-loc { font-size: 0.86rem; font-style: italic; color: var(--text-secondary); }
+.ar-status { font-family: 'Space Mono', monospace; font-size: 0.44rem; letter-spacing: 0.2em; color: var(--bronze); text-transform: uppercase; text-align: right; }
+
+/* FOOTER */
+.site-footer { background: var(--charcoal); padding: 6rem 3rem 3rem; position: relative; }
+.site-footer::before { content: ''; position: absolute; top: 0; left: 3rem; right: 3rem; height: 1px; background: rgba(245,240,232,0.06); }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.25em; color: var(--ivory); margin-bottom: 1.2rem; }
+.footer-tagline { font-size: 0.88rem; font-style: italic; color: rgba(245,240,232,0.28); line-height: 1.7; max-width: 230px; }
+.footer-col-title { font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.36em; color: var(--bronze-light); text-transform: uppercase; margin-bottom: 1.3rem; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a { font-size: 0.88rem; color: rgba(245,240,232,0.25); text-decoration: none; transition: color 0.25s; }
+.footer-links a:hover { color: rgba(245,240,232,0.65); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 2rem; border-top: 1px solid rgba(245,240,232,0.05); }
+.footer-copy { font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.2em; color: rgba(245,240,232,0.15); text-transform: uppercase; }
+.footer-sign { font-size: 0.86rem; font-style: italic; color: var(--bronze-light); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes breathe { 0%, 100% { opacity: 0.25; } 50% { opacity: 0.8; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.9s ease, transform 0.9s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.22s; } .d3 { transition-delay: 0.34s; } .d4 { transition-delay: 0.46s; }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .site-nav { padding: 1.4rem 1.5rem; }
+  .nav-links { display: none; }
+  .page-header { padding: 8rem 1.5rem 4rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .site-footer { padding: 4rem 1.5rem 2rem; }
+  .archive-row { grid-template-columns: 50px 1fr 100px; }
+  .ar-loc { display: none; }
+}
+</style>
+<style>
+.pub-tabs-bar { position: sticky; top: 0; z-index: 400; background: var(--ivory); border-bottom: 1px solid rgba(139,94,60,0.14); padding: 0 3rem; display: flex; align-items: center; gap: 0; overflow-x: auto; box-shadow: 0 2px 20px rgba(28,26,23,0.06); }
+.tab-btn { font-family: 'Space Mono', monospace; font-size: 0.54rem; letter-spacing: 0.2em; color: var(--text-ghost); text-transform: uppercase; padding: 1.2rem 1.8rem; border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; transition: color 0.25s, border-color 0.25s; }
+.tab-btn:hover { color: var(--bronze); }
+.tab-btn.active { color: var(--bronze); border-bottom-color: var(--bronze); }
+.tab-panel { display: none; padding: 5rem 3rem; }
+.tab-panel.active { display: block; }
+.tab-panel.dark-panel { background: var(--charcoal); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(139,94,60,0.07); }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: rgba(139,94,60,0.07); }
+.grid-2-dark { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: rgba(245,240,232,0.04); }
+.pub-card { background: var(--ivory); padding: 2.5rem; transition: background 0.3s; cursor: pointer; text-decoration: none; display: block; }
+.pub-card:hover { background: var(--ivory-warm); }
+.pub-card-type { font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.28em; color: var(--bronze); text-transform: uppercase; margin-bottom: 1.4rem; }
+.pub-card-img { width: 100%; aspect-ratio: 3/4; background: linear-gradient(155deg, rgba(139,94,60,0.07) 0%, rgba(196,132,90,0.04) 100%); margin-bottom: 1.5rem; position: relative; overflow: hidden; }
+.pub-card-img.wide { aspect-ratio: 16/9; }
+.pub-card-img-inner { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, rgba(139,94,60,0.1) 0%, transparent 60%); }
+.pub-card-status { position: absolute; bottom: 0.8rem; left: 0.8rem; font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.24em; color: rgba(139,94,60,0.38); text-transform: uppercase; }
+.pub-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.55rem; letter-spacing: 0.03em; color: var(--charcoal); line-height: 1.05; margin-bottom: 0.4rem; }
+.pub-card-sub { font-size: 0.84rem; font-style: italic; color: var(--text-ghost); }
+.film-card { background: var(--charcoal); padding: 2.5rem; transition: background 0.3s; cursor: pointer; text-decoration: none; display: block; }
+.film-card:hover { background: var(--charcoal-soft); }
+.film-card-type { font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.28em; color: var(--bronze-light); text-transform: uppercase; margin-bottom: 1.4rem; }
+.film-thumb { width: 100%; aspect-ratio: 16/9; background: radial-gradient(ellipse at 50% 35%, rgba(139,94,60,0.14) 0%, rgba(28,26,23,0.95) 70%); margin-bottom: 1.5rem; position: relative; display: flex; align-items: center; justify-content: center; }
+.play-icon { width: 46px; height: 46px; border: 1px solid rgba(196,132,90,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(196,132,90,0.55); font-size: 0.9rem; padding-left: 3px; }
+.film-status { position: absolute; bottom: 0.8rem; left: 0.8rem; font-family: 'Space Mono', monospace; font-size: 0.42rem; letter-spacing: 0.24em; color: rgba(196,132,90,0.32); text-transform: uppercase; }
+.film-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.55rem; letter-spacing: 0.03em; color: var(--ivory); line-height: 1.05; margin-bottom: 0.4rem; }
+.film-sub { font-size: 0.84rem; font-style: italic; color: rgba(245,240,232,0.28); }
+.pod-list { display: flex; flex-direction: column; gap: 2px; background: rgba(139,94,60,0.07); }
+.pod-card { background: var(--ivory-warm); padding: 2.5rem; border-left: 3px solid var(--bronze); transition: background 0.3s; display: flex; gap: 2rem; align-items: flex-start; }
+.pod-card:hover { background: var(--ivory-deep); }
+.pod-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(139,94,60,0.14); line-height: 1; flex-shrink: 0; }
+.pod-ep { font-family: 'Space Mono', monospace; font-size: 0.46rem; letter-spacing: 0.28em; color: var(--bronze); text-transform: uppercase; margin-bottom: 0.8rem; }
+.pod-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.03em; color: var(--charcoal); margin-bottom: 0.4rem; }
+.pod-sub { font-size: 0.84rem; font-style: italic; color: var(--text-ghost); }
+.panel-intro { margin-bottom: 3.5rem; }
+.panel-intro-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); color: var(--charcoal); line-height: 1; margin-top: 0.8rem; }
+.panel-intro-title.light { color: var(--ivory); }
+@media (max-width: 768px) {
+  .pub-tabs-bar { padding: 0 1.5rem; }
+  .tab-panel { padding: 3rem 1.5rem; }
+  .grid-3, .grid-2, .grid-2-dark { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav scrolled" id="nav">
+  <a href="index.html" class="nav-logo dark">Docs Africa</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="publication.html" class="nav-link dark active">Publication</a></li>
+      <li><a href="archive.html" class="nav-link dark">Archive</a></li>
+      <li><a href="institution.html" class="nav-link dark">Institution</a></li>
+      <li><a href="about.html" class="nav-link dark">About</a></li>
+    </ul>
+    <a href="issue-001.html" class="nav-cta">Current Issue</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-content">
+    <div class="eyebrow light">Docs Africa</div>
+    <div class="page-title">The<br><span>Publication</span></div>
+    <p class="page-desc">Everything Docs Africa produces and publishes. Issues, profiles, films, interviews, podcasts, and photoshoots — the evidence of the discovery.</p>
+  </div>
+</div>
+
+<div class="pub-tabs-bar">
+  <button class="tab-btn active" data-tab="issues">Issues</button>
+  <button class="tab-btn" data-tab="profiles">Profiles</button>
+  <button class="tab-btn" data-tab="films">Films</button>
+  <button class="tab-btn" data-tab="interviews">Interviews</button>
+  <button class="tab-btn" data-tab="podcasts">Podcasts</button>
+  <button class="tab-btn" data-tab="shoots">Photoshoots</button>
+</div>
+
+<div class="tab-panel active" id="tab-issues">
+  <div class="panel-intro"><div class="eyebrow">Issues</div><div class="panel-intro-title">The Flagship. One builder.<br>The full treatment.</div></div>
+  <div class="grid-3">
+    <a href="issue-001.html" class="pub-card">
+      <div class="pub-card-type">Issue 001 · 2026</div>
+      <div class="pub-card-img"><div class="pub-card-img-inner"></div><div class="pub-card-status">Available Now</div></div>
+      <div class="pub-card-title">NAZA BUILDS.</div>
+      <div class="pub-card-sub">Aba, Nigeria — Safety Tech · Jaga</div>
+    </a>
+    <div class="pub-card">
+      <div class="pub-card-type">Issue 002 · Coming</div>
+      <div class="pub-card-img"><div class="pub-card-img-inner"></div><div class="pub-card-status">In Discovery</div></div>
+      <div class="pub-card-title">THE NEXT LEGEND</div>
+      <div class="pub-card-sub">Waiting to be found</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-card-type">Issue 003 · Coming</div>
+      <div class="pub-card-img"><div class="pub-card-img-inner"></div><div class="pub-card-status">In Discovery</div></div>
+      <div class="pub-card-title">THE NEXT LEGEND</div>
+      <div class="pub-card-sub">Waiting to be found</div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab-profiles">
+  <div class="panel-intro"><div class="eyebrow">Written Profiles</div><div class="panel-intro-title">The long form. Five thousand words<br>that make someone feel legendary.</div></div>
+  <div class="grid-3">
+    <a href="issue-001.html" class="pub-card">
+      <div class="pub-card-type">Written Profile · 5,200 words</div>
+      <div class="pub-card-img"><div class="pub-card-img-inner"></div><div class="pub-card-status">Available Now</div></div>
+      <div class="pub-card-title">NAZA BUILDS.</div>
+      <div class="pub-card-sub">Aba, Nigeria · Issue 001</div>
+    </a>
+    <div class="pub-card">
+      <div class="pub-card-type">Written Profile · Coming</div>
+      <div class="pub-card-img"><div class="pub-card-img-inner"></div><div class="pub-card-status">In Progress</div></div>
+      <div class="pub-card-title">PROFILE 002</div>
+      <div class="pub-card-sub">In discovery</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-card-type">Written Profile · Coming</div>
+      <div class="pub-card-img"><div class="pub-card-img-inner"></div><div class="pub-card-status">In Progress</div></div>
+      <div class="pub-card-title">PROFILE 003</div>
+      <div class="pub-card-sub">In discovery</div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-panel dark-panel" id="tab-films">
+  <div class="panel-intro"><div class="eyebrow light">Films & Documentaries</div><div class="panel-intro-title light">The cinematic treatment.<br>Builders on screen.</div></div>
+  <div class="grid-2-dark">
+    <div class="film-card">
+      <div class="film-card-type">Short Documentary · Issue 001</div>
+      <div class="film-thumb"><div class="play-icon">▶</div><div class="film-status">Coming Soon</div></div>
+      <div class="film-title">NAZA BUILDS — THE FILM</div>
+      <div class="film-sub">A builder, a city, a decision that changed everything</div>
+    </div>
+    <div class="film-card">
+      <div class="film-card-type">Feature Documentary · In Production</div>
+      <div class="film-thumb"><div class="play-icon">▶</div><div class="film-status">In Production</div></div>
+      <div class="film-title">JUMP</div>
+      <div class="film-sub">A year-long video diary of building in Ariaria International Market</div>
+    </div>
+    <div class="film-card">
+      <div class="film-card-type">Documentary · Coming</div>
+      <div class="film-thumb"><div class="play-icon">▶</div><div class="film-status">In Discovery</div></div>
+      <div class="film-title">FILM 003</div>
+      <div class="film-sub">Waiting for the next subject</div>
+    </div>
+    <div class="film-card">
+      <div class="film-card-type">Documentary · Coming</div>
+      <div class="film-thumb"><div class="play-icon">▶</div><div class="film-status">In Discovery</div></div>
+      <div class="film-title">FILM 004</div>
+      <div class="film-sub">Waiting for the next subject</div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab-interviews">
+  <div class="panel-intro"><div class="eyebrow">Interviews</div><div class="panel-intro-title">The builder in their own voice.<br>Unfiltered and in full.</div></div>
+  <div class="grid-3">
+    <div class="pub-card">
+      <div class="pub-card-type">Long Interview · Issue 001</div>
+      <div class="pub-card-img wide"><div class="pub-card-img-inner"></div><div class="pub-card-status">Coming Soon</div></div>
+      <div class="pub-card-title">NAZA IN CONVERSATION</div>
+      <div class="pub-card-sub">On medicine, obsession, and building from Aba</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-card-type">Interview · Coming</div>
+      <div class="pub-card-img wide"><div class="pub-card-img-inner"></div><div class="pub-card-status">In Discovery</div></div>
+      <div class="pub-card-title">INTERVIEW 002</div>
+      <div class="pub-card-sub">In discovery</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-card-type">Interview · Coming</div>
+      <div class="pub-card-img wide"><div class="pub-card-img-inner"></div><div class="pub-card-status">In Discovery</div></div>
+      <div class="pub-card-title">INTERVIEW 003</div>
+      <div class="pub-card-sub">In discovery</div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab-podcasts">
+  <div class="panel-intro"><div class="eyebrow">Podcasts</div><div class="panel-intro-title">Audio and video. An hour<br>with a builder. Deep.</div></div>
+  <div class="pod-list">
+    <div class="pod-card">
+      <div class="pod-num">01</div>
+      <div>
+        <div class="pod-ep">Episode 001 · While They Were Building</div>
+        <div class="pod-title">NAZA ON WHAT MEDICINE COULDN'T GIVE HIM</div>
+        <div class="pod-sub">Audio + Video · Coming Soon · Issue 001</div>
+      </div>
+    </div>
+    <div class="pod-card">
+      <div class="pod-num">02</div>
+      <div>
+        <div class="pod-ep">Episode 002 · Coming</div>
+        <div class="pod-title">THE NEXT CONVERSATION</div>
+        <div class="pod-sub">In discovery</div>
+      </div>
+    </div>
+    <div class="pod-card">
+      <div class="pod-num">03</div>
+      <div>
+        <div class="pod-ep">Episode 003 · Coming</div>
+        <div class="pod-title">THE NEXT CONVERSATION</div>
+        <div class="pod-sub">In discovery</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tab-panel" id="tab-shoots">
+  <div class="panel-intro"><div class="eyebrow">Photoshoots</div><div class="panel-intro-title">The album cover moment.<br>Shot like a legend.</div></div>
+  <div class="grid-3">
+    <div class="pub-card">
+      <div class="pub-card-type">Editorial Shoot · Issue 001</div>
+      <div class="pub-card-img"><div class="pub-card-img-inner"></div><div class="pub-card-status">Coming Soon</div></div>
+      <div class="pub-card-title">NAZA — THE SHOOT</div>
+      <div class="pub-card-sub">Shot in Aba · Issue 001</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-card-type">Behind The Scenes · Issue 001</div>
+      <div class="pub-card-img"><div class="pub-card-img-inner"></div><div class="pub-card-status">Coming Soon</div></div>
+      <div class="pub-card-title">NAZA — BTS</div>
+      <div class="pub-card-sub">What the camera saw between takes</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-card-type">Editorial Shoot · Coming</div>
+      <div class="pub-card-img"><div class="pub-card-img-inner"></div><div class="pub-card-status">In Discovery</div></div>
+      <div class="pub-card-title">SHOOT 002</div>
+      <div class="pub-card-sub">Waiting for the next subject</div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">Docs Africa</div><p class="footer-tagline">We make legends out of builders. The cultural institution documenting Africa's most important generation.</p></div>
+    <div><div class="footer-col-title">Publication</div><ul class="footer-links"><li><a href="publication.html">Issues</a></li><li><a href="publication.html">Profiles</a></li><li><a href="publication.html">Films</a></li><li><a href="publication.html">Interviews</a></li><li><a href="publication.html">Podcasts</a></li><li><a href="publication.html">Photoshoots</a></li></ul></div>
+    <div><div class="footer-col-title">Institution</div><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="institution.html">Award Nights</a></li><li><a href="institution.html">Network</a></li><li><a href="archive.html">The Archive</a></li></ul></div>
+    <div><div class="footer-col-title">Connect</div><ul class="footer-links"><li><a href="#">Instagram</a></li><li><a href="#">X / Twitter</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">Newsletter</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><div class="footer-copy">© 2026 Docs Africa — All Rights Reserved</div><div class="footer-sign">While They Were Building.</div></div>
+</footer>
+
+<script>
+const tabs = document.querySelectorAll('.tab-btn');
+const panels = document.querySelectorAll('.tab-panel');
+tabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.tab;
+    tabs.forEach(b => b.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + t).classList.add('active');
+    document.body.style.background = t === 'films' ? 'var(--charcoal)' : 'var(--ivory)';
+  });
+});
+const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('in'); }), {threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
